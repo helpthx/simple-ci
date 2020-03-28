@@ -38,9 +38,9 @@ jobs:
           
     - name: Building containers
       run: |
-          export "$API_DB_USER"
-          export "$API_DB_PASS"
-          export "$API_DB_DATABASE"
+          export $API_DB_USER
+          export $API_DB_PASS
+          export $API_DB_DATABASE
 
     - name: Building containers
       run: make build
