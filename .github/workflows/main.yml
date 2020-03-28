@@ -49,7 +49,7 @@ jobs:
         pip install pycodestyle
       
     - name: Run Linter PEP8 Style COde
-      run: pycodestyle . 
+      run: pycodestyle . --max-line-length=120 --exclude=migrations
           
     - name: Building containers
       run: make build
