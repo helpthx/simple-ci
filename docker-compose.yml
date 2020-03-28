@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+
+  db_postgres:
+    restart: always
+    image: postgres:11
+    container_name: db_postgres
+    environment:
+      - POSTGRES_PASSWORD=${PG_PASS}
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    networks:
+      - banco_network
+
+  api_simple:
+    container_name: api_simple
+    restart: always
+    build: .
+    links:
+      - db_postgres
+    depends_on:
+      - db_postgres
+    ports:
+      - 8000:8000
+    volumes:
+      - .:/simple-ci/
+    command: /simple-ci/run.sh
+    networks:
+      - banco_network
+
+volumes:
+  postgres_data:
+
+networks:
+  banco_network:
+    driver: bridge

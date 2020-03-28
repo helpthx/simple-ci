@@ -1,0 +1,66 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - uses: actions/checkout@v2
+    
+    - shell: bash
+      env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        PG_PASS: ${{ secrets.PG_PASS }}
+  
+      run: |
+          echo SECRET_KEY="$SECRET_KEY" >> .env
+          echo DATABASE_URL="$DATABASE_URL" >> .env
+          echo PG_PASS="$PG_PASS" >> .env
+        
+    
+    - name: Setting up varibles files
+      run: cat .env
+           
+    - name: Setting up varibles files
+      run: ls -la
+      
+    - name: Setting up varibles files
+      run: make build
+      
+    - name: Setting up varibles files
+      run: docker-compose up -d db_extracao
+           
+    - name: Sleep Action 15s
+      uses: juliangruber/sleep-action@v1.0.1
+      with:
+        time: '15s'
+    
+    - name: Creating roles for PostgreSQL
+      run: make create-role
+      
+    - name: Alter roles for PostgreSQL
+      run: make alter-role
+      
+    - name: Creating Database for PostgreSQL
+      run: make create-db
+      
+    - name: Run Unit Test
+      run: docker-compose run --rm api_desafio_test
+
+    
