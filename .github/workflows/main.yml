@@ -25,42 +25,39 @@ jobs:
     - shell: bash
       env:
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        DATABASE_URL: ${{ secrets.DATABASE_URL }}
         PG_PASS: ${{ secrets.PG_PASS }}
-  
+        API_DB_USER: ${{ secrets.API_DB_USER }}
+        API_DB_PASS: ${{ secrets.API_DB_PASS }}
+        API_DB_DATABASE: ${{ secrets.API_DB_DATABASE }}
+        DATABASE_URL: DATABASE_URL=postgres://"$API_DB_USER":"$API_DB_PASS"@db_postgres:5432/"$API_DB_DATABASE"
+
+    - name: Creating .env file for python decouple
       run: |
           echo SECRET_KEY="$SECRET_KEY" >> .env
           echo DATABASE_URL="$DATABASE_URL" >> .env
           echo PG_PASS="$PG_PASS" >> .env
-        
-    
-    - name: Setting up varibles files
-      run: cat .env
-           
-    - name: Setting up varibles files
-      run: ls -la
-      
-    - name: Setting up varibles files
+
+    - name: Building containers
       run: make build
       
-    - name: Setting up varibles files
-      run: docker-compose up -d db_extracao
+    - name: Starting PostgreSQL
+      run: docker-compose up -d db_postgres
            
-    - name: Sleep Action 15s
+    - name: Sleep Action 15s to wait postgres upping
       uses: juliangruber/sleep-action@v1.0.1
       with:
         time: '15s'
     
     - name: Creating roles for PostgreSQL
-      run: make create-role
+      run: docker exec db_postgres psql -U postgres -c "CREATE ROLE "$API_DB_USER" LOGIN ENCRYPTED PASSWORD '"$API_DB_PASS"' NOSUPERUSER INHERIT CREATEDB NOCREATEROLE NOREPLICATION;"
       
     - name: Alter roles for PostgreSQL
-      run: make alter-role
+      run: docker exec db_postgres psql -U postgres -c "ALTER ROLE "$API_DB_USER" VALID UNTIL 'infinity'; ALTER USER "$API_DB_USER" CREATEDB;"
       
     - name: Creating Database for PostgreSQL
-      run: make create-db
+      run: docker exec db_postgres psql -U postgres -c "CREATE DATABASE "$API_DB_DATABASE" WITH OWNER = "$API_DB_USER" ENCODING = 'UTF8' TABLESPACE = pg_default LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8' CONNECTION LIMIT = -1 TEMPLATE template0;"
       
     - name: Run Unit Test
-      run: docker-compose run --rm api_desafio_test
+      run: docker-compose run --rm api_simple /simple-ci/run-test.sh
 
     
