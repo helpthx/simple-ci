@@ -75,8 +75,8 @@ jobs:
     - name: Run Djnago Unit Test
       run: docker-compose run --rm api_simple /simple-ci/run-test.sh
       
-    - name: Automatic Merge
-      uses: lots0logs/gh-action-auto-merge@1.0.0
+    - name: Merge pull requests
+      uses: pascalgn/automerge-action@v0.8.0
       
     - name: Delete merged branch
       uses: SvanBoxel/delete-merged-branch@v1.3.3
