@@ -21,7 +21,7 @@
    * <b> Settings > Secrets > Add all the secrets. </b> 
    ![Secrets](images/secrets.png)
    
-   * Those secrets are encrypted variables used in workflows/main.yml.
+   * Those secrets are <b>encrypted variables</b> used in workflows/main.yml.
 
 2 - This simple pipeline is powerful for microservices development teamns.
 
