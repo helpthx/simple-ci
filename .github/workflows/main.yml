@@ -35,11 +35,17 @@ jobs:
           echo SECRET_KEY="$SECRET_KEY" >> .env
           echo DATABASE_URL="$DATABASE_URL" >> .env
           echo PG_PASS="$PG_PASS" >> .env
+                
+    - name: Set up Python 3.6
+      uses: actions/setup-python@v1
+      with:
+        python-version: 3.6
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
           
     - name: Installing Python Linter PEP8
       run: |
-        apt-get install python-setuptools
-        easy_install pip
         pip install pycodestyle
       
     - name: Run Linter PEP8 Style COde
