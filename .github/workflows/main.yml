@@ -75,11 +75,11 @@ jobs:
     - name: Run Djnago Unit Test
       run: docker-compose run --rm api_simple /simple-ci/run-test.sh
     
-    - name: Tag commit
-      uses: tvdias/github-tagger@v0.0.1
+    - name: Label Github Action
+      uses: awact/label-action@0.1.0
       with:
-        repo-token: "${{ secrets.GITHUB_TOKEN }}"
-        tag: "automerge"
+        ADD_LABEL: automerge 
+        
  
     
 
