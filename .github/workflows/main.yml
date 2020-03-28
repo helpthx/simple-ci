@@ -37,10 +37,13 @@ jobs:
           echo PG_PASS="$PG_PASS" >> .env
           
     - name: Installing Python Linter PEP8
-      run: pip install pycodestyle
+      run: |
+        apt-get install python-setuptools
+        easy_install pip
+        pip install pycodestyle
       
     - name: Run Linter PEP8 Style COde
-      run: pycodestyle . --max-line-length=120 
+      run: pycodestyle . 
           
     - name: Building containers
       run: make build
