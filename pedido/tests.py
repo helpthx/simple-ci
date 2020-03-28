@@ -56,7 +56,7 @@ class PedidoTeste(APITestCase):
 
         self.assertEqual(Produtos.objects.count(), 1)
 
-        data_pedido["valor_unitario"] = 1200.0
+        data_pedido["valor_unitario"] = '1200,0'
 
         response = self.client.post(self.url_create, data_pedido, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
