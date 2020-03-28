@@ -20,7 +20,7 @@ class PedidoTeste(APITestCase):
         "situacao_prod": "1"
     }
 
-    data_pedido =     {
+    data_pedido = {
         "qtd_produtos": 5,
         "valor_unitario": 1200.0,
         "data_pedido": "1200-12-08",
@@ -28,8 +28,7 @@ class PedidoTeste(APITestCase):
         "endereco_solicitante": "QNM 09 CONJUNTO C CASA 28",
         "despachante": "Amazon",
         "situacao_pedido": "0",
-        "nome_produto": 1
-    }
+        "nome_produto": 1}
 
     def setUp(self):
         self.url_create = reverse('pedido:pedido_create')
@@ -57,7 +56,7 @@ class PedidoTeste(APITestCase):
 
         self.assertEqual(Produtos.objects.count(), 1)
 
-        data_pedido["valor_unitario"] = 1200,0
+        data_pedido["valor_unitario"] = 1200.0
 
         response = self.client.post(self.url_create, data_pedido, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -183,6 +182,3 @@ class PedidoTeste(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
         self.assertEqual(Pedidos.objects.count(), 0)
-
-
-

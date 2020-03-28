@@ -32,7 +32,7 @@ class ProdutoTeste(APITestCase):
 
         self.assertEqual(Produtos.objects.count(), 1)
 
-        data["valor_unitario"] = 1200,0
+        data["valor_unitario"] = 1200.0
 
         response = self.client.post(self.url_create, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
@@ -115,6 +115,3 @@ class ProdutoTeste(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
 
         self.assertEqual(Produtos.objects.count(), 0)
-
-
-

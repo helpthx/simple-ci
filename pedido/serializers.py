@@ -50,4 +50,3 @@ class PedidosDetailUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pedidos
         exclude = ('created_at', 'updated_at')
-

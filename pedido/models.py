@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-OPCS_STATUS_PEDIDO = [('0', 'Pendente'), ('1', 'Enviado'), ('2' , 'Entregue')]
+OPCS_STATUS_PEDIDO = [('0', 'Pendente'), ('1', 'Enviado'), ('2', 'Entregue')]
 
 
 class Pedidos(models.Model):

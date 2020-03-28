@@ -46,4 +46,3 @@ class ProdutosDetailUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Produtos
         exclude = ('created_at', 'updated_at')
-
