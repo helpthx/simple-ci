@@ -1,57 +1,96 @@
-# API Desafio Coopersystem
+# Simple and powerful continuous integration pipeline for microservices development teams
+
+![Header](images/header.jpg)
 
 [Python](https://www.python.org/) - **3.6.0**
 
 [Django](https://www.djangoproject.com/) - **2.2.5**
 
+[PostgreSQL]() - **11**
+
 [Django RestFramework](https://www.django-rest-framework.org/) - 3.9.4
 
 [Docker]() - **18.09.7**
 
-[docker-compose --version]() - **1.24.1** 
+[Docker-Compose]() - **1.24.1** 
 
+# Continues Intregration with git-actions and git-secrets
+![CI](images/ci_pipeline.png)
 
-## Criar o .env da aplicação:
+1 - Create git secrets variables for the sensitive variables. \
+   * <b> Settings > Secrets > Add all the secrets. </b> 
+   ![Secrets](images/secrets.png)
+   
+   * Those secrets are encrypted variables used in workflows/main.yml.
 
-1. Criar o ponto o .env no diretório do manage.py \
-**Arquivo do .env será enviado por email**
+2 - This simple pipeline is powerful for microservices development teamns.
 
-## Instalação do Desafio com Docker
-- Executar o seguinte comando para baixar as depedencias da api:
+3 - First enforce the code style using PEP 8 best practies.
+
+4 - Build images and Run unit tests.    
+ 
+    
+# Installations on localhost 
+## Create a .env for [Python Decouple](https://pypi.org/project/python-decouple/) sensitive variables:
+
+1 - Create enviroment variables for using in .env
+
 ```
-make build
+$ export API_DB_USER=<Choose you PostgreSQL username>
+$ export API_DB_PASS=<Choose you PostgreSQL password>
+$ export API_DB_DATABASE=<Choose you PostgreSQL Database>
+``` 
+
+2 - Create the .env in manage.py's directory
 ```
-- Execute o seguinte comando para subir a imagem do postgresql: 
+.env 
+SECRET_KEY=<$DJANGO_SECRET_KEY>
+DATABASE_URL= postgres://<$API_DB_USER>:<$API_DB_PASS>@db_postgres:5432/<$API_DB_DATABASE>
+PG_PASS=<$PG_ADMIN_ROOT_PASS>
+``` 
+
+3 - Building all images for later be using for containers:
+```
+$ make build
+```
+
+4 - Execute this command to create PostgreSQL database name as db_postgres: 
 ```
 make up-postgresql
 ```
-- Executar os seguintes comandos para criar o banco de dados no postgresql (em sequência):
+
+5 - Wait 10s and then execute those commands to set username and password credentials for database:
 ```
-make create-role
+Create role with enviroment variables
+$ make create-role
 ```
 ```
-make alter-role
+Alter role to be active 
+$ make alter-role
+```
+
+```
+Alter role to give permission to create database 
+$ make permission-role
 ```
 ```
-make create-db
+Create Database for django 
+$ make create-db
 ```
-- Para subir os ambientes virtuais, execute:
+6 - If you wanna up all contaieners:
  
 ```
 make up
 ```
 
-- Para subir os ambientes em modo de desenvolvimento, execute:
+7 - Create API container in development mode with deamons:
  
 ```
 make run
 
-```
-- Verificar se os containers estão rodando sem falhas `docker ps`
-
-
-     
+```   
     
+## API Simple structure as a CRUD 
 ### produto:
   * Urls: 
         * api/produto/ \
