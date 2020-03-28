@@ -57,7 +57,7 @@ jobs:
       run: docker exec db_postgres psql -U postgres -c "CREATE ROLE ${API_DB_USER} LOGIN ENCRYPTED PASSWORD '${API_DB_PASS}' NOSUPERUSER INHERIT CREATEDB NOCREATEROLE NOREPLICATION;"
       
     - name: Alter roles for PostgreSQL
-      run: docker exec db_postgres psql -U postgres -c "ALTER ROLE ${API_DB_USER}" VALID UNTIL 'infinity; ALTER USER ${API_DB_USER} CREATEDB;"
+      run: docker exec db_postgres psql -U postgres -c "ALTER ROLE ${API_DB_USER} VALID UNTIL 'infinity; ALTER USER ${API_DB_USER} CREATEDB;"
       
     - name: Creating Database for PostgreSQL
       run: docker exec db_postgres psql -U postgres -c "CREATE DATABASE ${API_DB_DATABASE} WITH OWNER = ${API_DB_USER} ENCODING = 'UTF8' TABLESPACE = pg_default LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8' CONNECTION LIMIT = -1 TEMPLATE template0;"
