@@ -17,7 +17,7 @@
 # Continues Intregration with git-actions and git-secrets
 ![CI](images/ci_pipeline.png)
 
-1 - Create git secrets variables for the sensitive variables. \
+1 - Create git secrets variables for the sensitive variables. 
    * <b> Settings > Secrets > Add all the secrets. </b> 
    ![Secrets](images/secrets.png)
    
@@ -106,6 +106,8 @@ make run
             * /create \
             * /detail-update/{id} \
             * /delete/{id}
+            
+       
 
 
       
