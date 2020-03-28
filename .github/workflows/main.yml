@@ -31,7 +31,6 @@ jobs:
         API_DB_DATABASE: ${{ secrets.API_DB_DATABASE }}
         DATABASE_URL: DATABASE_URL=postgres://"$API_DB_USER":"$API_DB_PASS"@db_postgres:5432/"$API_DB_DATABASE"
 
-    - name: Creating .env file for python decouple
       run: |
           echo SECRET_KEY="$SECRET_KEY" >> .env
           echo DATABASE_URL="$DATABASE_URL" >> .env
