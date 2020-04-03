@@ -72,6 +72,5 @@ jobs:
     - name: Creating Database for PostgreSQL
       run: docker exec db_postgres psql -U postgres -c "CREATE DATABASE ${{ secrets.API_DB_PASS }} WITH OWNER = ${{ secrets.API_DB_USER }} ENCODING = 'UTF8' TABLESPACE = pg_default LC_COLLATE = 'en_US.UTF-8' LC_CTYPE = 'en_US.UTF-8' CONNECTION LIMIT = -1 TEMPLATE template0;"
       
-    
 
     
