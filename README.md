@@ -8,7 +8,7 @@
 
 [PostgreSQL]() - **11**
 
-[Django RestFramework](https://www.django-rest-framework.org/) - 3.9.4
+[Django RestFramework](https://www.django-rest-framework.org/) - **3.9.4**
 
 [Docker]() - **18.09.7**
 
