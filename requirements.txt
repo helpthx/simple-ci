@@ -25,7 +25,7 @@ psycopg2-binary
 ptyprocess==0.6.0
 pycparser==2.19
 pycryptodome==3.8.2
-Pygments==2.4.2
+Pygments==2.7.4
 PyJWT==1.7.1
 python-dateutil==2.8.0
 python-decouple==3.1
